@@ -1,0 +1,7 @@
+{
+  "name": "FootballStatistics",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
