@@ -22,19 +22,28 @@ import {
 import {
   StandingsTableSkeletonComponent
 } from "./components/standings-table-skeleton/standings-table-skeleton/standings-table-skeleton.component";
+import { MatchListSectionComponent } from './components/matches-section/matches-section.component';
+import { StandingsSectionComponent } from './components/standings-section/standings-section.component';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, MatchCardComponent, StandingsTableComponent, AccordionSectionComponent, IonButton, MatchCardSkeletonComponent, StandingsTableSkeletonComponent],
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    MatchListSectionComponent,
+    StandingsSectionComponent,
+  ],
 })
 export class Tab1Page {
   sport = SportKeys.FOOTBALL;
 
   readonly recentMatches = signal<Match[]>([]);
   readonly liveMatches = signal<Match[]>([]);
-  readonly fixtures= signal<Match[]>([]);
+  readonly fixtures = signal<Match[]>([]);
   readonly standings = signal<StandingsResponse | null>(null);
   readonly page = signal<number>(1);
 
@@ -63,60 +72,58 @@ export class Tab1Page {
   private loadMatches() {
     this.isLoading.set(true);
 
-    this.sportService.getMatches(this.sport)
+    this.sportService
+      .getMatches(this.sport)
       .pipe(
-        delay(8000),
-        map(response => response.matches),
-        map(matches => ({
-          live: matches.filter(match => match.status === 'live'),
-          recent: matches.filter(match => match.status === 'finished')
+        delay(3000),
+        map((response) => response.matches),
+        map((matches) => ({
+          live: matches.filter((match) => match.status === 'live'),
+          recent: matches.filter((match) => match.status === 'finished'),
         })),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe({
         next: (matches) => {
           this.liveMatches.set(matches.live);
           this.recentMatches.set(matches.recent);
           this.isLoading.set(false);
-        }
+        },
       });
   }
 
   private loadFixtures() {
     this.isLoadingFixtures.set(true);
 
-    this.sportService.getFixtures(this.sport)
-      .pipe(
-        delay(8000),
-        takeUntilDestroyed(this.destroyRef))
+    this.sportService
+      .getFixtures(this.sport)
+      .pipe(delay(3000), takeUntilDestroyed(this.destroyRef))
       .subscribe({
-      next: (data) => {
-        this.fixtures.set(data.matches);
-        this.isLoadingFixtures.set(false);
-      }
-    });
+        next: (data) => {
+          this.fixtures.set(data.matches);
+          this.isLoadingFixtures.set(false);
+        },
+      });
   }
 
   private loadStandings() {
     this.isLoadingStandings.set(true);
 
-    this.sportService.getStandings(this.sport, this.leagueSlug)
-      .pipe(
-        delay(8000),
-        takeUntilDestroyed(this.destroyRef))
+    this.sportService
+      .getStandings(this.sport, this.leagueSlug)
+      .pipe(delay(3000), takeUntilDestroyed(this.destroyRef))
       .subscribe({
-      next: (data) => {
-        this.standings.set(data);
-        this.isLoadingStandings.set(false);
-      },
-      error: () => {
-        this.isLoading.set(false);
-      }
-    });
+        next: (data) => {
+          this.standings.set(data);
+          this.isLoadingStandings.set(false);
+        },
+        error: () => {
+          this.isLoading.set(false);
+        },
+      });
   }
 
   protected showMoreClicked() {
     this.page.update((p) => ++p);
   }
-
 }

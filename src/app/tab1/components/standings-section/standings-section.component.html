@@ -1,0 +1,9 @@
+@if (isLoading() || standings()) {
+  <app-accordion-section [title]="SectionTitles.STANDINGS">
+    @if (isLoading()) {
+      <app-standings-table-skeleton></app-standings-table-skeleton>
+    } @else {
+      <app-standings-table [standings]="standings()!"></app-standings-table>
+    }
+  </app-accordion-section>
+}
