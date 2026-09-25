@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://sportscore.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

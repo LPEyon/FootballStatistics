@@ -1,0 +1,16 @@
+<ion-accordion-group [value]="isOpen() ? 'section' : null">
+  <ion-accordion value="section">
+    <ion-item slot="header">
+      <ion-label>
+        {{ title() }}
+        @if (count() > 0) {
+          <span class="count">({{ count() }})</span>
+        }
+      </ion-label>
+    </ion-item>
+
+    <div slot="content">
+      <ng-content></ng-content>
+    </div>
+  </ion-accordion>
+</ion-accordion-group>

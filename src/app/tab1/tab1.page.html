@@ -1,17 +1,106 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-title> Football </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Football</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  @if (isLoading()) {
+    <app-accordion-section [title]="SectionTitles.LIVE_MATCHES">
+      @for (_ of [].constructor(MAX_PAGE_ITEM_COUNT); track $index) {
+        <app-match-card-skeleton></app-match-card-skeleton>
+      }
+      <!--@for (_ of 'x'.repeat(MAX_PAGE_ITEM_COUNT).split(''); track $index) {
+        <app-match-card-skeleton></app-match-card-skeleton>
+      }-->
+    </app-accordion-section>
+  }
+  @if (!isLoading() && liveMatches().length > 0) {
+    <app-accordion-section
+      [title]="SectionTitles.LIVE_MATCHES"
+      [count]="liveMatches().length"
+    >
+      @for (
+        match of liveMatches().slice(0, MAX_PAGE_ITEM_COUNT * page());
+        track match.url
+      ) {
+        <app-match-card [match]="match"></app-match-card>
+      }
+      @if (page() * MAX_PAGE_ITEM_COUNT < liveMatches().length) {
+        <ion-button fill="clear" (click)="showMoreClicked()"
+          >Show more ...</ion-button
+        >
+      } @else {
+        <p>No more {{ SectionTitles.LIVE_MATCHES }} to show</p>
+      }
+    </app-accordion-section>
+  }
+  @if (isLoading() || recentMatches().length > 0) {
+    <app-accordion-section
+      [title]="SectionTitles.RECENT_MATCHES"
+      [count]="recentMatches().length"
+    >
+      @if (isLoading()) {
+        @for (_ of [].constructor(MAX_PAGE_ITEM_COUNT); track $index) {
+          <app-match-card-skeleton></app-match-card-skeleton>
+        }
+      } @else {
+        @for (
+          match of recentMatches().slice(0, MAX_PAGE_ITEM_COUNT * page());
+          track match.url
+        ) {
+          <app-match-card [match]="match"></app-match-card>
+        }
+        @if (page() * MAX_PAGE_ITEM_COUNT < recentMatches().length) {
+          <ion-button fill="clear" (click)="showMoreClicked()"
+            >Show more ...</ion-button
+          >
+        }
+      }
+    </app-accordion-section>
+  }
+  @if (isLoadingFixtures() || fixtures().length > 0) {
+    <app-accordion-section
+      [title]="SectionTitles.FIXTURES"
+      [count]="fixtures().length"
+      [isOpen]="true"
+    >
+      @if (isLoadingFixtures()) {
+        @for (_ of [].constructor(MAX_PAGE_ITEM_COUNT); track $index) {
+          <app-match-card-skeleton></app-match-card-skeleton>
+        }
+      } @else {
+        @for (
+          fixture of fixtures().slice(0, MAX_PAGE_ITEM_COUNT * page());
+          track fixture.url
+        ) {
+          <app-match-card [match]="fixture"></app-match-card>
+        }
+        @if (page() * MAX_PAGE_ITEM_COUNT < fixtures().length) {
+          <ion-button fill="clear" (click)="showMoreClicked()"
+            >Show more ...</ion-button
+          >
+        }
+      }
+    </app-accordion-section>
+  }
+  @if (isLoadingStandings() || standings()) {
+    <app-accordion-section [title]="SectionTitles.STANDINGS">
+      @if (isLoadingFixtures()) {
+        <app-standings-table-skeleton></app-standings-table-skeleton>
+      } @else {
+        @if (standings(); as standingsData) {
+          <app-standings-table
+            [standings]="standingsData"
+          ></app-standings-table>
+        }
+      }
+    </app-accordion-section>
+  }
 </ion-content>

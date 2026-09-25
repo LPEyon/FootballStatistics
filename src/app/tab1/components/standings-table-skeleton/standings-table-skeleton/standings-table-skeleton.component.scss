@@ -1,0 +1,110 @@
+.standings-container {
+  margin: 16px auto;
+  max-width: 800px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.league-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid;
+
+  .league-logo {
+    width: 20px;
+    height: 20px;
+  }
+
+  .league-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+}
+
+.table-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 1px solid;
+
+  span {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+}
+
+.table-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.col-pos {
+  width: 24px;
+  font-size: 12px;
+  flex-shrink: 0;
+
+  &.ion-skeleton-text {
+    height: 12px;
+  }
+}
+
+.col-team {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+
+  .team-logo {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .team-name {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.col-stat {
+  width: 28px;
+  text-align: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.col-stat.bold {
+  width: 30px;
+  font-weight: bold;
+  border-left: 1px solid;
+}
+
+@media (max-width: 370px) {
+  .hide-370 {
+    display: none;
+  }
+}
+
+@media (max-width: 340px) {
+  .hide-340 {
+    display: none;
+  }
+}
+
+@media (max-width: 300px) {
+  .hide-300 {
+    display: none;
+  }
+}

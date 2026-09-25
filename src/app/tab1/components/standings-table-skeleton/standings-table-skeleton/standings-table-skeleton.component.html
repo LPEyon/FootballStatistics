@@ -1,0 +1,52 @@
+<div class="standings-container">
+  <div class="league-header">
+    <ion-thumbnail class="league-logo">
+      <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+    </ion-thumbnail>
+    <ion-skeleton-text
+      [animated]="true"
+      style="width: 150px">
+
+    </ion-skeleton-text>
+  </div>
+
+  <div class="table-header">
+    <span class="col-pos">#</span>
+    <span class="col-team">Team</span>
+    <span class="col-stat">P</span>
+    <span class="col-stat hide-300">W</span>
+    <span class="col-stat hide-340">D</span>
+    <span class="col-stat hide-300">L</span>
+    <span class="col-stat hide-370">GD</span>
+    <span class="col-stat bold">PTS</span>
+  </div>
+
+
+  @for (row of skeletonRows; track $index) {
+    <div class="table-row">
+      <ion-skeleton-text
+        [animated]="true"
+        class="col-pos">
+
+      </ion-skeleton-text>
+
+      <div class="col-team">
+        <ion-thumbnail class="team-logo">
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-skeleton-text
+          [animated]="true"
+          style="width: 50%">
+
+        </ion-skeleton-text>
+      </div>
+      <ion-skeleton-text [animated]="true" class="col-stat"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" class="col-stat hide-300"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" class="col-stat hide-340"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" class="col-stat hide-300"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" class="col-stat hide-370"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" class="col-stat bold"></ion-skeleton-text>
+    </div>
+  }
+</div>
+

@@ -1,0 +1,36 @@
+<div class="standings-container">
+  <div class="league-header">
+    <img [src]="standings().competition_logo" class="league-logo" alt="">
+    <span class="league-name">{{ standings().competition}}</span>
+  </div>
+
+  <div class="table-header">
+    <span class="col-pos">#</span>
+    <span class="col-team">Team</span>
+    <span class="col-stat">P</span>
+    <span class="col-stat hide-300">W</span>
+    <span class="col-stat hide-340">D</span>
+    <span class="col-stat hide-300">L</span>
+    <span class="col-stat hide-370">GD</span>
+    <span class="col-stat bold">PTS</span>
+  </div>
+
+
+  @for (table of standings().tables; track table.group) {
+    @for (row of table.rows; track row.team_slug) {
+      <div class="table-row">
+        <span class="col-pos">{{row.pos}}.</span>
+        <div class="col-team">
+          <ion-img [src]="row.team_logo" class="team-logo"></ion-img>
+          <span class="team-name">{{ row.team}}</span>
+        </div>
+        <span class="col-stat">{{ row.p }}</span>
+        <span class="col-stat hide-300">{{ row.w }}</span>
+        <span class="col-stat hide-340">{{ row.d }}</span>
+        <span class="col-stat hide-300">{{ row.l }}</span>
+        <span class="col-stat hide-370">{{ row.gd }}</span>
+        <span class="col-stat bold">{{ row.pts }}</span>
+      </div>
+    }
+  }
+</div>

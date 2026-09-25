@@ -35,3 +35,32 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+.ios, .md {
+  app-standings-table {
+    .ion-hide-sm-down,
+    .ion-hide-md-down {
+      display: initial !important;
+    }
+  }
+}
+
+ion-tab-bar {
+  ion-tab-button {
+    min-width: 0;
+    padding: 0;
+  }
+
+  ion-icon {
+    font-size: 22px;
+  }
+
+  ion-label {
+    font-size: 9px;
+
+    @media (max-width: 350px) {
+      display: none;
+    }
+  }
+}
